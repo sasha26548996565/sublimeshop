@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Main;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Contracts\View\View;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
 
 class IndexController extends Controller
 {
     public function __invoke(): View
     {
-        return view('index');
+        $products = Product::latest()->paginate(8);
+
+        return view('index', compact('products'));
     }
 }

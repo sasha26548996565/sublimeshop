@@ -1,41 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-	<!-- Ads -->
-
-	<div class="avds">
-		<div class="avds_container d-flex flex-lg-row flex-column align-items-start justify-content-between">
-			<div class="avds_small">
-				<div class="avds_background" style="background-image:url(images/avds_small.jpg)"></div>
-				<div class="avds_small_inner">
-					<div class="avds_discount_container">
-						<img src="images/discount.png" alt="">
-						<div>
-							<div class="avds_discount">
-								<div>20<span>%</span></div>
-								<div>Discount</div>
-							</div>
-						</div>
-					</div>
-					<div class="avds_small_content">
-						<div class="avds_title">Smart Phones</div>
-						<div class="avds_link"><a href="categories.html">See More</a></div>
-					</div>
-				</div>
-			</div>
-			<div class="avds_large">
-				<div class="avds_background" style="background-image:url(images/avds_large.jpg)"></div>
-				<div class="avds_large_container">
-					<div class="avds_large_content">
-						<div class="avds_title">Professional Cameras</div>
-						<div class="avds_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros. Sed viver ra velit venenatis fermentum luctus.</div>
-						<div class="avds_link avds_link_large"><a href="categories.html">See More</a></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<!-- Products -->
 
 	<div class="products">
@@ -44,82 +9,15 @@
 				<div class="col">
 
 					<div class="product_grid">
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="images/product_1.jpg" alt=""></div>
-							<div class="product_extra product_new"><a href="categories.html">New</a></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="images/product_2.jpg" alt=""></div>
-							<div class="product_extra product_sale"><a href="categories.html">Sale</a></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="images/product_3.jpg" alt=""></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="images/product_4.jpg" alt=""></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="images/product_5.jpg" alt=""></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="images/product_6.jpg" alt=""></div>
-							<div class="product_extra product_hot"><a href="categories.html">Hot</a></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="images/product_7.jpg" alt=""></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="images/product_8.jpg" alt=""></div>
-							<div class="product_extra product_sale"><a href="categories.html">Hot</a></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
+                        @foreach ($products as $product)
+                            <div class="product">
+                                <div class="product_image"><img src="{{ $product->image }}" alt=""></div>
+                                <div class="product_content">
+                                    <div class="product_title"><a href="product.html">{{ $product->name }}</a></div>
+                                    <div class="product_price">{{ $product->price }}</div>
+                                </div>
+                            </div>
+                        @endforeach
 
 					</div>
 
