@@ -4,17 +4,15 @@
             <div class="row">
                 <div class="col">
                     <div class="header_content d-flex flex-row align-items-center justify-content-start">
-                        <div class="logo"><a href="#">Sublime.</a></div>
+                        <div class="logo"><a href="{{ route('index') }}">Sublime.</a></div>
                         <nav class="main_nav">
                             <ul>
                                 <li class="hassubs active">
-                                    <a href="index.html">Home</a>
+                                    <a href="{{ route('index') }}">Home</a>
                                     <ul>
                                         <li><a href="categories.html">Categories</a></li>
-                                        <li><a href="product.html">Product</a></li>
                                         <li><a href="cart.html">Cart</a></li>
                                         <li><a href="checkout.html">Check out</a></li>
-                                        <li><a href="contact.html">Contact</a></li>
                                     </ul>
                                 </li>
                                 <li class="hassubs">
@@ -25,9 +23,18 @@
                                         @endforeach
                                     </ul>
                                 </li>
-                                <li><a href="#">Accessories</a></li>
-                                <li><a href="#">Offers</a></li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li class="hassubs">
+                                    <a href="{{ route('login') }}">auth</a>
+                                    <ul>
+                                        @guest
+                                            <li><a href="{{ route('register') }}">sign up</a></li>
+                                            <li><a href="{{ route('login') }}">login</a></li>
+                                        @endguest
+                                        @auth
+                                           <li><a href="{{ route('logout') }}">logout</a></li>
+                                        @endauth
+                                    </ul>
+                                </li>
                             </ul>
                         </nav>
                         <div class="header_extra ml-auto">

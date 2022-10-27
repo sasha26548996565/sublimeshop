@@ -197,6 +197,9 @@ return [
 
         App\Providers\ViewComposerServiceProvider::class,
 
+        Spatie\Permission\PermissionServiceProvider::class,
+
+
     ],
 
     /*
