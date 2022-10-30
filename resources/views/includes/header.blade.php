@@ -10,16 +10,15 @@
                                 <li class="hassubs active">
                                     <a href="{{ route('index') }}">Home</a>
                                     <ul>
-                                        <li><a href="categories.html">Categories</a></li>
                                         <li><a href="cart.html">Cart</a></li>
                                         <li><a href="checkout.html">Check out</a></li>
                                     </ul>
                                 </li>
                                 <li class="hassubs">
-                                    <a href="categories.html">Categories</a>
+                                    <a href="#">Categories</a>
                                     <ul>
                                         @foreach ($categories as $category)
-                                            <li><a href="categories.html">{{ $category->name }}</a></li>
+                                            <li><a href="{{ route('category.show', $category->slug) }}">{{ $category->name }}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
@@ -93,22 +92,13 @@
             <div class="row">
                 <div class="col">
                     <div class="search_panel_content d-flex flex-row align-items-center justify-content-end">
-                        <form action="#">
-                            <input type="text" class="search_input" placeholder="Search" required="required">
+                        <form action="{{ route('search') }}" method="GET">
+                            <input type="text" name="search" class="search_input" placeholder="Search" required="required">
+                            <input type="submit" class="btn btn-success" value="search">
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Social -->
-    <div class="header_social">
-        <ul>
-            <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-        </ul>
     </div>
 </header>
