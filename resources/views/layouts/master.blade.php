@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/animate.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('styles/main_styles.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('styles/responsive.css"') }}">
+    @yield('custom_style')
 </head>
 
 <body>
@@ -40,6 +41,7 @@
     <script src="{{ asset('plugins/easing/easing.js') }}"></script>
     <script src="{{ asset('plugins/parallax-js-master/parallax.min.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
+    @yield('custom_javascript')
 </body>
 
 </html>

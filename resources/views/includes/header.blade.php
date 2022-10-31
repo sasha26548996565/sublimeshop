@@ -10,7 +10,7 @@
                                 <li class="hassubs active">
                                     <a href="{{ route('index') }}">Home</a>
                                     <ul>
-                                        <li><a href="cart.html">Cart</a></li>
+                                        <li><a href="{{ route('cart.index') }}">Cart</a></li>
                                         <li><a href="checkout.html">Check out</a></li>
                                     </ul>
                                 </li>
@@ -38,7 +38,7 @@
                         </nav>
                         <div class="header_extra ml-auto">
                             <div class="shopping_cart">
-                                <a href="cart.html">
+                                <a href="{{ route('cart.index') }}">
                                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                         viewBox="0 0 489 489" style="enable-background:new 0 0 489 489;"
@@ -52,7 +52,7 @@
                                                 c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5v-41h45.2l26.9,302.3C412.8,445.2,392.1,462,366.8,462z" />
                                         </g>
                                     </svg>
-                                    <div>Cart <span>(0)</span></div>
+                                    <div>Cart <span>({{ $countElementInCart }})</span></div>
                                 </a>
                             </div>
                             <div class="search">
