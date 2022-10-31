@@ -21,7 +21,7 @@ class ProductFactory extends Factory
             'name' => $this->faker->word,
             'slug' => $this->faker->word . now()->format('YmdHis'),
             'description' => $this->faker->sentence,
-            'image' => $this->faker->image('public/storage/images/products', 500, 380, null, false),
+            'image' => 0,
             'quantity' => $this->faker->numberBetween(0, 10),
             'price' => $this->faker->randomFloat(1, 100, 1000),
             'category_id' => Category::all()->random()->id,

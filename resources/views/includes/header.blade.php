@@ -4,35 +4,41 @@
             <div class="row">
                 <div class="col">
                     <div class="header_content d-flex flex-row align-items-center justify-content-start">
-                        <div class="logo"><a href="#">Sublime.</a></div>
+                        <div class="logo"><a href="{{ route('index') }}">Sublime.</a></div>
                         <nav class="main_nav">
                             <ul>
                                 <li class="hassubs active">
-                                    <a href="index.html">Home</a>
+                                    <a href="{{ route('index') }}">Home</a>
                                     <ul>
-                                        <li><a href="categories.html">Categories</a></li>
-                                        <li><a href="product.html">Product</a></li>
-                                        <li><a href="cart.html">Cart</a></li>
+                                        <li><a href="{{ route('cart.index') }}">Cart</a></li>
                                         <li><a href="checkout.html">Check out</a></li>
-                                        <li><a href="contact.html">Contact</a></li>
                                     </ul>
                                 </li>
                                 <li class="hassubs">
-                                    <a href="categories.html">Categories</a>
+                                    <a href="#">Categories</a>
                                     <ul>
                                         @foreach ($categories as $category)
-                                            <li><a href="categories.html">{{ $category->name }}</a></li>
+                                            <li><a href="{{ route('category.show', $category->slug) }}">{{ $category->name }}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
-                                <li><a href="#">Accessories</a></li>
-                                <li><a href="#">Offers</a></li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li class="hassubs">
+                                    <a href="{{ route('login') }}">auth</a>
+                                    <ul>
+                                        @guest
+                                            <li><a href="{{ route('register') }}">sign up</a></li>
+                                            <li><a href="{{ route('login') }}">login</a></li>
+                                        @endguest
+                                        @auth
+                                           <li><a href="{{ route('logout') }}">logout</a></li>
+                                        @endauth
+                                    </ul>
+                                </li>
                             </ul>
                         </nav>
                         <div class="header_extra ml-auto">
                             <div class="shopping_cart">
-                                <a href="cart.html">
+                                <a href="{{ route('cart.index') }}">
                                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                         viewBox="0 0 489 489" style="enable-background:new 0 0 489 489;"
@@ -46,7 +52,7 @@
                                                 c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5v-41h45.2l26.9,302.3C412.8,445.2,392.1,462,366.8,462z" />
                                         </g>
                                     </svg>
-                                    <div>Cart <span>(0)</span></div>
+                                    <div>Cart <span>({{ $countElementInCart }})</span></div>
                                 </a>
                             </div>
                             <div class="search">
@@ -86,22 +92,13 @@
             <div class="row">
                 <div class="col">
                     <div class="search_panel_content d-flex flex-row align-items-center justify-content-end">
-                        <form action="#">
-                            <input type="text" class="search_input" placeholder="Search" required="required">
+                        <form action="{{ route('search') }}" method="GET">
+                            <input type="text" name="search" class="search_input" placeholder="Search" required="required">
+                            <input type="submit" class="btn btn-success" value="search">
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Social -->
-    <div class="header_social">
-        <ul>
-            <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-        </ul>
     </div>
 </header>

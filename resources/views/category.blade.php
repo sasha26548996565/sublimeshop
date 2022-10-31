@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'category: '. $category->name)
+
 @section('content')
 	<!-- Products -->
 
@@ -9,15 +11,17 @@
 				<div class="col">
 
 					<div class="product_grid">
-                        @foreach ($products as $product)
+                        @forelse ($category->products as $product)
                             <div class="product">
-                                <div class="product_image"><img src="{{ Storage::url($product->image) }}" alt=""></div>
+                                <div class="product_image"><img src="{{ $product->image }}" alt=""></div>
                                 <div class="product_content">
-                                    <div class="product_title"><a href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a></div>
+                                    <div class="product_title"><a href="product.html">{{ $product->name }}</a></div>
                                     <div class="product_price">{{ $product->price }}</div>
                                 </div>
                             </div>
-                        @endforeach
+						@empty
+							<p>no products</p>
+                        @endforelse
 
 					</div>
 
