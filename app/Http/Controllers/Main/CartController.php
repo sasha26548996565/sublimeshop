@@ -49,6 +49,17 @@ class CartController extends Controller
         return to_route('cart.index', compact('order'));
     }
 
+    public function remove(Product $product): RedirectResponse
+    {
+        $order = Order::findOrFail(session('orderId'));
+        $order->products()->detach($product->id);
+
+        if (count($order->products) > 0)
+            return to_route('cart.index', compact('order'));
+
+        return to_route('index');
+    }
+
     public function clear(): RedirectResponse
     {
         $order = Order::findOrFail(session('orderId'));

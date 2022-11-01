@@ -14,6 +14,7 @@ Route::namespace('App\Http\Controllers')->middleware('verified')->group(function
             Route::controller('CartController')->group(function () {
                 Route::middleware('cart_not_empty')->group(function () {
                     Route::get('/', 'index')->name('index');
+                    Route::post('remove/{product}', 'remove')->name('remove');
                     Route::get('/clear', 'clear')->name('clear');
                 });
 

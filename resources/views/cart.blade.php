@@ -77,6 +77,11 @@
                                 </div>
                                 <button type="submit" class="button cart_button">Add to cart</button>
 							</form>
+                            <form action="{{ route('cart.remove', $product->id) }}" method="POST">
+                                @csrf
+
+                                <button type="submit" class="button cart_button">Remove from cart</button>
+                            </form>
                             <!-- Total -->
                             <div class="cart_item_total">{{ $order->getSubTotalPrice() }}</div>
                         </div>
