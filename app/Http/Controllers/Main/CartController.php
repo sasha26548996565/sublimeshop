@@ -48,8 +48,22 @@ class CartController extends Controller
         } else
         {
             $order->products()->attach($product->id);
+            $pivotRow = $order->products()->where('product_id', $product->id)->first()->pivot;
+            $pivotRow->count = $request->quantity;
+            $pivotRow->update();
         }
 
         return to_route('cart.index', compact('order'));
+    }
+
+    public function clear(): RedirectResponse
+    {
+        $orderId = session('orderId');
+        $order = Order::findOrFail($orderId);
+        $order->products()->detach();
+
+        session()->forget('orderId');
+
+        return to_route('index');
     }
 }

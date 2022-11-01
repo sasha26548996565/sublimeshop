@@ -19,13 +19,30 @@ class Order extends Model
         return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id')->withPivot('count')->withTimestamps();
     }
 
-    public function getTotalPrice(): float
+    public function shipping(): Relation
+    {
+        return $this->belongsTo(Shipping::class, 'shipping_id', 'id');
+    }
+
+    public function getSubTotalPrice(): float
     {
         $totalPrice = 0;
 
         foreach ($this->products as $product)
         {
             $totalPrice += $product->getPriceForCount();
+        }
+
+        return $totalPrice;
+    }
+
+    public function getTotalPrice(): float
+    {
+        $totalPrice = $this->getSubTotalPrice();
+
+        if ($this->shipping->exists())
+        {
+            $totalPrice += $this->shipping->price;
         }
 
         return $totalPrice;

@@ -53,8 +53,11 @@
                                         if (! is_null($orderId))
                                         {
                                             $order = App\Models\Order::findOrFail($orderId);
-                                            $pivotRow = $order->products()->where('product_id', $product->id)->first()->pivot;
-                                            $countAvailable = $product->quantity - $pivotRow->count;
+                                            if ($order->products->contains($product->id))
+                                            {
+                                                $pivotRow = $order->products()->where('product_id', $product->id)->first()->pivot;
+                                                $countAvailable = $product->quantity - $pivotRow->count;
+                                            }
                                         }
                                     ?>
                                     <input id="quantity_input" name="quantity" type="text" readonly data-max="{{ $countAvailable }}" value="{{ $countAvailable }}">

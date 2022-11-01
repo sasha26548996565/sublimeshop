@@ -9,6 +9,25 @@
 
 @section('custom_javascript')
     <script src="{{ asset('js/cart.js') }}"></script>
+    <script>
+        jQuery(document).ready(function () {
+            jQuery('input:radio[name=delivery_option]').change(function () {
+                let shippingId = jQuery('input:radio[name=delivery_option]:checked').val();
+                let shippingView = jQuery('div.cart_total_value.shipping');
+
+                jQuery.ajax({
+                    type: "GET",
+                    url: "{{ route('cart.shipping.setShipping') }}",
+                    data: {
+                        shippingId: shippingId
+                    },
+                    success: function (response) {
+                        shippingView.html(response.shippingName);
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -59,7 +78,7 @@
                                 <button type="submit" class="button cart_button">Add to cart</button>
 							</form>
                             <!-- Total -->
-                            <div class="cart_item_total">{{ $order->getTotalPrice() }}</div>
+                            <div class="cart_item_total">{{ $order->getSubTotalPrice() }}</div>
                         </div>
                     @endforeach
 
@@ -68,10 +87,10 @@
 			<div class="row row_cart_buttons">
 				<div class="col">
 					<div class="cart_buttons d-flex flex-lg-row flex-column align-items-start justify-content-start">
-						<div class="button continue_shopping_button"><a href="#">Continue shopping</a></div>
+						<div class="button continue_shopping_button"><a href="{{ route('index') }}">Continue shopping</a></div>
 						<div class="cart_buttons_right ml-lg-auto">
-							<div class="button clear_cart_button"><a href="#">Clear cart</a></div>
-							<div class="button update_cart_button"><a href="#">Update cart</a></div>
+							<div class="button clear_cart_button"><a href="{{ route('cart.clear') }}">Clear cart</a></div>
+							<div class="button update_cart_button"><a href="{{ route('cart.index') }}">Update cart</a></div>
 						</div>
 					</div>
 				</div>
@@ -84,21 +103,13 @@
 						<div class="section_title">Shipping method</div>
 						<div class="section_subtitle">Select the one you want</div>
 						<div class="delivery_options">
-							<label class="delivery_option clearfix">Next day delivery
-								<input type="radio" name="radio">
-								<span class="checkmark"></span>
-								<span class="delivery_price">$4.99</span>
-							</label>
-							<label class="delivery_option clearfix">Standard delivery
-								<input type="radio" name="radio">
-								<span class="checkmark"></span>
-								<span class="delivery_price">$1.99</span>
-							</label>
-							<label class="delivery_option clearfix">Personal pickup
-								<input type="radio" checked="checked" name="radio">
-								<span class="checkmark"></span>
-								<span class="delivery_price">Free</span>
-							</label>
+                            @foreach ($shippings as $shipping)
+                                <label class="delivery_option clearfix">{{ $shipping->name }}
+                                    <input type="radio" name="delivery_option" value="{{ $shipping->id }}">
+                                    <span class="checkmark"></span>
+                                    <span class="delivery_price">{{ $shipping->price }}</span>
+                                </label>
+                            @endforeach
 						</div>
 					</div>
 
@@ -123,15 +134,15 @@
 							<ul>
 								<li class="d-flex flex-row align-items-center justify-content-start">
 									<div class="cart_total_title">Subtotal</div>
-									<div class="cart_total_value ml-auto">$790.90</div>
+									<div class="cart_total_value ml-auto">{{ $order->getSubTotalPrice() }}</div>
 								</li>
 								<li class="d-flex flex-row align-items-center justify-content-start">
 									<div class="cart_total_title">Shipping</div>
-									<div class="cart_total_value ml-auto">Free</div>
+									<div class="cart_total_value shipping ml-auto">choose</div>
 								</li>
 								<li class="d-flex flex-row align-items-center justify-content-start">
 									<div class="cart_total_title">Total</div>
-									<div class="cart_total_value ml-auto">$790.90</div>
+									<div class="cart_total_value ml-auto">{{ $order->getTotalPrice() }}</div>
 								</li>
 							</ul>
 						</div>

@@ -10,11 +10,17 @@ Route::namespace('App\Http\Controllers')->middleware('verified')->group(function
         Route::get('search/', 'SearchController@search')->name('search');
         Route::get('/product/{slug}', 'ProductController@show')->name('product.show');
 
-        Route::name('cart.')->prefix('cart')->controller('CartController')->group(function () {
-            Route::middleware('cart_not_empty')->group(function () {
-                Route::get('/', 'index')->name('index');
+        Route::name('cart.')->prefix('cart')->group(function () {
+            Route::controller('CartController')->group(function () {
+                Route::middleware('cart_not_empty')->group(function () {
+                    Route::get('/', 'index')->name('index');
+                    Route::get('/clear', 'clear')->name('clear');
+                });
+
+                Route::post('add/{product}', 'add')->name('add');
             });
-            Route::post('add/{product}', 'add')->name('add');
+
+            Route::get('shipping/set', 'ShippingController@setShipping')->name('shipping.setShipping');
         });
     });
 });
