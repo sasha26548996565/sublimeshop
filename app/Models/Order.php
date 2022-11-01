@@ -24,6 +24,11 @@ class Order extends Model
         return $this->belongsTo(Shipping::class, 'shipping_id', 'id');
     }
 
+    public function coupon(): Relation
+    {
+        return $this->belongsTo(Coupon::class, 'coupon_id', 'id');
+    }
+
     public function getSubTotalPrice(): float
     {
         $totalPrice = 0;
@@ -43,6 +48,18 @@ class Order extends Model
         if ($this->shipping->exists())
         {
             $totalPrice += $this->shipping->price;
+        }
+
+        return $totalPrice;
+    }
+
+    public function getTotalPriceWithCoupon(): float
+    {
+        $totalPrice = $this->getTotalPrice();
+
+        if ($this->coupon->exists())
+        {
+            $totalPrice = round($totalPrice - ($totalPrice * $this->coupon->discount / 100), 2);
         }
 
         return $totalPrice;

@@ -21,6 +21,7 @@ Route::namespace('App\Http\Controllers')->middleware('verified')->group(function
             });
 
             Route::get('shipping/set', 'ShippingController@setShipping')->name('shipping.setShipping');
+            Route::post('/coupon/add', 'CouponController@add')->name('coupon.add');
         });
     });
 });

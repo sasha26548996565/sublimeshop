@@ -118,9 +118,10 @@
 						<div class="section_title">Coupon code</div>
 						<div class="section_subtitle">Enter your coupon code</div>
 						<div class="coupon_form_container">
-							<form action="#" id="coupon_form" class="coupon_form">
-								<input type="text" class="coupon_input" required="required">
-								<button class="button coupon_button"><span>Apply</span></button>
+							<form action="{{ route('cart.coupon.add') }}" id="coupon_form" method="POST" class="coupon_form">
+                                @csrf
+								<input type="text" name="name" class="coupon_input" required="required">
+								<button type="submit" class="button coupon_button"><span>Apply</span></button>
 							</form>
 						</div>
 					</div>
@@ -143,6 +144,10 @@
 								<li class="d-flex flex-row align-items-center justify-content-start">
 									<div class="cart_total_title">Total</div>
 									<div class="cart_total_value ml-auto">{{ $order->getTotalPrice() }}</div>
+								</li>
+                                <li class="d-flex flex-row align-items-center justify-content-start">
+									<div class="cart_total_title">Total with coupon</div>
+									<div class="cart_total_value ml-auto">{{ $order->getTotalPriceWithCoupon() }}</div>
 								</li>
 							</ul>
 						</div>

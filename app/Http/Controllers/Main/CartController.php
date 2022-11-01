@@ -15,14 +15,7 @@ class CartController extends Controller
 {
     public function index(): View
     {
-        $orderId = session('orderId');
-
-        if (is_null($orderId))
-        {
-            return view('cart');
-        }
-
-        $order = Order::findOrFail($orderId);
+        $order = Order::findOrFail(session('orderId'));
 
         return view('cart', compact('order'));
     }
@@ -58,8 +51,7 @@ class CartController extends Controller
 
     public function clear(): RedirectResponse
     {
-        $orderId = session('orderId');
-        $order = Order::findOrFail($orderId);
+        $order = Order::findOrFail(session('orderId'));
         $order->products()->detach();
 
         session()->forget('orderId');

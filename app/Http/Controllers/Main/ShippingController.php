@@ -9,18 +9,14 @@ use App\Models\Shipping;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use Barryvdh\Debugbar\Facades\Debugbar;
-use DebugBar\DebugBar as DebugBarDebugBar;
 
 class ShippingController extends Controller
 {
     public function setShipping(Request $request): JsonResponse
     {
         $shipping = Shipping::findOrFail($request->shippingId);
-        $orderId = session('orderId');
-        $order = Order::findOrFail($orderId);
-        $order->shipping()->associate($shipping->id);
-        $order->save();
+        $order = Order::findOrFail(session('orderId'));
+        $order->shipping()->associate($shipping->id)->save();
 
         return response()->json(['shippingName' => $shipping->name]);
     }
