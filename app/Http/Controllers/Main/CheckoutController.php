@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Main;
 
+use App\Events\ConfirmCheckout;
 use App\Models\City;
 use App\Models\Order;
 use App\Models\Country;
@@ -30,12 +31,7 @@ class CheckoutController extends Controller
         $order = Order::findOrFail(session('orderId'));
         $order->status = 1;
         $order->update($request->validated());
-
-        foreach ($order->products as $product)
-        {
-            $product->quantity -= $product->pivot->count;
-            $product->save();
-        }
+        event(new ConfirmCheckout($order));
 
         session()->forget('orderId');
 

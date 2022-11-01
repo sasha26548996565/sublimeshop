@@ -8,11 +8,19 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\CartService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
 class CartController extends Controller
 {
+    private CartService $cartService;
+
+    public function __construct(CartService $cartService)
+    {
+        $this->cartService = $cartService;
+    }
+
     public function index(): View
     {
         $order = Order::findOrFail(session('orderId'));
@@ -33,18 +41,7 @@ class CartController extends Controller
             $order = Order::findOrFail($orderId);
         }
 
-        if ($order->products->contains($product->id))
-        {
-            $pivotRow = $order->products()->where('product_id', $product->id)->first()->pivot;
-            $pivotRow->count = $request->quantity;
-            $pivotRow->update();
-        } else
-        {
-            $order->products()->attach($product->id);
-            $pivotRow = $order->products()->where('product_id', $product->id)->first()->pivot;
-            $pivotRow->count = $request->quantity;
-            $pivotRow->update();
-        }
+        $this->cartService->add($order, $product, (int) $request->quantity);
 
         return to_route('cart.index', compact('order'));
     }
