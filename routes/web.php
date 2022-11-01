@@ -21,7 +21,13 @@ Route::namespace('App\Http\Controllers')->middleware('verified')->group(function
             });
 
             Route::get('shipping/set', 'ShippingController@setShipping')->name('shipping.setShipping');
+
             Route::post('/coupon/add', 'CouponController@add')->name('coupon.add');
+
+            Route::name('checkout.')->prefix('checkout')->controller('CheckoutController')->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::post('/confirm', 'confirm')->name('confirm');
+            });
         });
     });
 });

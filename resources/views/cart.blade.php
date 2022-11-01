@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                             <!-- Price -->
-                            <div class="cart_item_price">{{ $product->getPriceForCount() }}</div>
+                            <div class="cart_item_price">{{ $product->price }}</div>
                             <!-- Quantity -->
                             <form action="{{ route('cart.add', $product->id) }}" method="POST">
 								@csrf
@@ -151,7 +151,7 @@
 								</li>
 							</ul>
 						</div>
-						<div class="button checkout_button"><a href="#">Proceed to checkout</a></div>
+						<div class="button checkout_button"><a href="{{ route('cart.checkout.index') }}">Proceed to checkout</a></div>
 					</div>
 				</div>
 			</div>

@@ -12,7 +12,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $guraded = [];
+    protected $guarded = [];
 
     public function products(): Relation
     {
@@ -45,7 +45,7 @@ class Order extends Model
     {
         $totalPrice = $this->getSubTotalPrice();
 
-        if ($this->shipping->exists())
+        if (! is_null($this->shipping))
         {
             $totalPrice += $this->shipping->price;
         }
@@ -57,7 +57,7 @@ class Order extends Model
     {
         $totalPrice = $this->getTotalPrice();
 
-        if ($this->coupon->exists())
+        if (! is_null($this->coupon))
         {
             $totalPrice = round($totalPrice - ($totalPrice * $this->coupon->discount / 100), 2);
         }
