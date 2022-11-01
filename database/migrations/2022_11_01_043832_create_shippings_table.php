@@ -8,13 +8,11 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('shippings', function (Blueprint $table) {
             $table->id();
 
-            $table->string('address')->nullable();
-            $table->integer('zipcode')->nullable();
-            $table->integer('phone')->nullable();
-            $table->integer('delievery')->nullable();
+            $table->string('name');
+            $table->unsignedDouble('price');
 
             $table->timestamps();
         });
@@ -22,6 +20,6 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('shippings');
     }
 };

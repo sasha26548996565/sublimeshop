@@ -15,14 +15,7 @@ class CartController extends Controller
 {
     public function index(): View
     {
-        $orderId = session('orderId');
-
-        if (is_null($orderId))
-        {
-            return view('cart');
-        }
-
-        $order = Order::findOrFail($orderId);
+        $order = Order::findOrFail(session('orderId'));
 
         return view('cart', compact('order'));
     }
@@ -48,8 +41,32 @@ class CartController extends Controller
         } else
         {
             $order->products()->attach($product->id);
+            $pivotRow = $order->products()->where('product_id', $product->id)->first()->pivot;
+            $pivotRow->count = $request->quantity;
+            $pivotRow->update();
         }
 
         return to_route('cart.index', compact('order'));
+    }
+
+    public function remove(Product $product): RedirectResponse
+    {
+        $order = Order::findOrFail(session('orderId'));
+        $order->products()->detach($product->id);
+
+        if (count($order->products) > 0)
+            return to_route('cart.index', compact('order'));
+
+        return to_route('index');
+    }
+
+    public function clear(): RedirectResponse
+    {
+        $order = Order::findOrFail(session('orderId'));
+        $order->products()->detach();
+
+        session()->forget('orderId');
+
+        return to_route('index');
     }
 }

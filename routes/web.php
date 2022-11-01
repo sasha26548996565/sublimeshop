@@ -10,11 +10,25 @@ Route::namespace('App\Http\Controllers')->middleware('verified')->group(function
         Route::get('search/', 'SearchController@search')->name('search');
         Route::get('/product/{slug}', 'ProductController@show')->name('product.show');
 
-        Route::name('cart.')->prefix('cart')->controller('CartController')->group(function () {
-            Route::middleware('cart_not_empty')->group(function () {
-                Route::get('/', 'index')->name('index');
+        Route::name('cart.')->prefix('cart')->group(function () {
+            Route::controller('CartController')->group(function () {
+                Route::middleware('cart_not_empty')->group(function () {
+                    Route::get('/', 'index')->name('index');
+                    Route::post('remove/{product}', 'remove')->name('remove');
+                    Route::get('/clear', 'clear')->name('clear');
+                });
+
+                Route::post('add/{product}', 'add')->name('add');
             });
-            Route::post('add/{product}', 'add')->name('add');
+
+            Route::get('shipping/set', 'ShippingController@setShipping')->name('shipping.setShipping');
+
+            Route::post('/coupon/add', 'CouponController@add')->name('coupon.add');
+
+            Route::name('checkout.')->prefix('checkout')->controller('CheckoutController')->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::post('/confirm', 'confirm')->name('confirm');
+            });
         });
     });
 });
