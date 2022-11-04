@@ -23,6 +23,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public const ROLE_USER = 'user';
     public const ROLE_ADMIN = 'admin';
 
+    public const PERMISSION_CREATE_PRODUCT = 'create-product';
+
     public function sendEmailVerificationNotification(): void
     {
         $this->notify(new SendEmailVerificationNotification());

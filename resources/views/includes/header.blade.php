@@ -11,7 +11,9 @@
                                     <a href="{{ route('index') }}">Home</a>
                                     <ul>
                                         <li><a href="{{ route('cart.index') }}">Cart</a></li>
-                                        <li><a href="checkout.html">Check out</a></li>
+                                        @can('create-product')
+                                            <li><a href="{{ route('product.create') }}">add product</a></li>
+                                        @endcan
                                     </ul>
                                 </li>
                                 <li class="hassubs">
