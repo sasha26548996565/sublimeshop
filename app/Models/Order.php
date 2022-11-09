@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -13,6 +14,8 @@ class Order extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public const ACTIVE_STATUS = 1;
 
     public function products(): Relation
     {
@@ -27,6 +30,26 @@ class Order extends Model
     public function coupon(): Relation
     {
         return $this->belongsTo(Coupon::class, 'coupon_id', 'id');
+    }
+
+    public function city(): Relation
+    {
+        return $this->belongsTo(City::class, 'city_id', 'id');
+    }
+
+    public function country(): Relation
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
+
+    public function province(): Relation
+    {
+        return $this->belongsTo(Province::class, 'province_id', 'id');
+    }
+
+    public function scopeGetActive(Builder $builder): Builder
+    {
+        return $builder->where('status', self::ACTIVE_STATUS);
     }
 
     public function getSubTotalPrice(): float
