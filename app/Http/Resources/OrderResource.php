@@ -20,6 +20,7 @@ class OrderResource extends JsonResource
             'zipcode' => $this->zipcode,
             'status' => $this->status,
             'created_at' => $this->created_at,
+            'company' => $this->company,
             'products' => ProductResource::collection($this->products),
             'coupon' => new CouponResource($this->coupon),
         ];
