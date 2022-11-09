@@ -38,7 +38,6 @@ class OrderController extends Controller
     public function destroy(Order $order): Response
     {
         $order->delete();
-
         return response(Response::HTTP_NO_CONTENT);
     }
 }
