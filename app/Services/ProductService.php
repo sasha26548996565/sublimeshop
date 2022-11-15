@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\DTO\ProductDTO;
 use App\Models\Product;
+use App\Events\ProductCreated;
 use Illuminate\Support\Facades\Storage;
 
 class ProductService
@@ -14,6 +15,7 @@ class ProductService
     {
         $product->image = Storage::disk('public')->put('/images/products', $product->image);
         $product = Product::create($product->toArray());
+        event(new ProductCreated($product));
 
         return $product;
     }
