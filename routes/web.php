@@ -6,8 +6,9 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('App\Http\Controllers')->middleware('verified')->group(function () {
     Route::namespace('Main')->group(function () {
         Route::get('/', 'IndexController')->name('index');
-        Route::get('category/{slug}', 'CategoryController@show')->name('category.show');
-        Route::get('search/', 'SearchController@search')->name('search');
+        Route::get('/category/{slug}', 'CategoryController@show')->name('category.show');
+        Route::get('/search', 'SearchController@search')->name('search');
+        Route::post('/subscription', 'SubscriptionController@subscribtion')->name('subscription');
 
         Route::name('product.')->prefix('product')->controller('ProductController')->group(function () {
             Route::get('/show/{slug}', 'show')->name('show');
