@@ -103,9 +103,14 @@
 						<div class="newsletter_title">Subscribe to our newsletter</div>
 						<div class="newsletter_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros</p></div>
 						<div class="newsletter_form_container">
-							<form action="#" id="newsletter_form" class="newsletter_form">
-								<input type="email" class="newsletter_input" required="required">
-								<button class="newsletter_button trans_200"><span>Subscribe</span></button>
+							<form action="{{ route('subscription') }}" id="newsletter_form" method="POST" class="newsletter_form">
+                                @csrf
+
+                                @auth
+								    <button type="submit" class="newsletter_button trans_200"><span>Subscribe</span></button>
+                                @else
+                                    <h4>please, login</h4>
+                                @endauth
 							</form>
 						</div>
 					</div>

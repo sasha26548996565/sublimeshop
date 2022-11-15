@@ -31,12 +31,14 @@ class OrderController extends Controller
     public function update(Order $order, CheckoutRequest $request): OrderResource
     {
         $order->update($request->validated());
+
         return new OrderResource($order);
     }
 
     public function destroy(Order $order): Response
     {
         $order->delete();
+
         return response(Response::HTTP_NO_CONTENT);
     }
 }

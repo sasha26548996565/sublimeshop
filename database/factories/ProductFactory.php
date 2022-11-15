@@ -19,7 +19,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'slug' => $this->faker->word . now()->format('YmdHis'),
+            'slug' => $this->faker->unique->word . now()->format('YmdHis'),
             'description' => $this->faker->sentence,
             'image' => 0,
             'quantity' => $this->faker->numberBetween(0, 10),
