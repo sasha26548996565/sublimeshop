@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\ConfirmCheckout;
+use App\Events\ProductCreated;
 use App\Listeners\ChangeProductQuantityNotification;
+use App\Listeners\ProductCreatedNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ConfirmCheckout::class => [
             ChangeProductQuantityNotification::class,
+        ],
+        ProductCreated::class => [
+            ProductCreatedNotification::class,
         ]
     ];
 
