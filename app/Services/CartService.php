@@ -12,18 +12,12 @@ class CartService
 {
     public function add(Order $order, Product $product, int $quantity): void
     {
-        if ($order->products->contains($product->id))
-        {
-            $pivotRow = $this->getPivotRow($order, $product);
-            $pivotRow->count = $quantity;
-            $pivotRow->update();
-        } else
-        {
+        if (! $order->products->contains($product->id))
             $order->products()->attach($product->id);
-            $pivotRow = $this->getPivotRow($order, $product);
-            $pivotRow->count = $quantity;
-            $pivotRow->update();
-        }
+
+        $pivotRow = $this->getPivotRow($order, $product);
+        $pivotRow->count = $quantity;
+        $pivotRow->update();
     }
 
     private function getPivotRow(Order $order, Product $product): Pivot
